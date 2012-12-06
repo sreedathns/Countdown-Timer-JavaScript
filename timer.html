@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head><title>Count Down Timer</title></head>
+<body><div align="center">
+<canvas id="canvas" width=150 height=50 style= "border: 5px solid #FF0066"></div>
+</canvas>
+<body>
+<form><center>
+<p>Mins:<input type = "text" id = "mins"/>
+Secs:<input type = "text" id = "secs"/>
+<input type="button" value="begin" onclick="begin()">
+<input type="button" value="settime" onclick="settime()">
+<input type="button" value="stop" onclick="stop()">
+</center>
+<script>
+var a=document.getElementById("canvas");
+var context = canvas.getContext("2d");
+context.font = "30px Arial";
+context.fillStyle ="black"
+context.fillRect(0,0,150,50);
+function settime()
+{
+	var mins=document.getElementById("mins").value;
+	var secs= document.getElementById("secs").value;
+	context.fillStyle = "red";
+	context.clearRect(0,0,150,50)
+	context.fillText(minit,10,30)
+	context.fillText(":",45,30)
+	context.fillText(second,60,30)
+}
+function counter()
+{
+	if(secs>=0 && mins>=0)
+	{
+		context.clearRect(0,0,150,50)
+		context.fillText(mins,10,30)
+		context.fillText(":",45,30)
+		context.fillText(secs,60,30)
+		secs=secs-1
+	}
+	else if(mins>0)
+	{
+		secs=59
+		mins=mins-1
+		context.clearRect(0,0,150,50)
+		context.fillText(mins,10,30)
+		context.fillText(":",45,30)
+		context.fillText(secs,60,30)
+		secs=secs-1
+	}
+	else
+	{
+		context.fillStyle ="red"
+		context.fillRect(0,0,150,50);
+		context.fillStyle = "blue";
+		context.fillText("timeout",10,30)
+		clearInterval(timer)
+	}
+}
+function begin()
+{
+	context.clearRect(0,0,150,50);
+	mins=document.getElementById("mins").value;
+	secs=document.getElementById("secs").value;
+	timer=window.setInterval(counter,1000);
+}
+function stop()
+{
+	window.clearInterval(timer);
+}
+</script>
+</body>
+</html>
